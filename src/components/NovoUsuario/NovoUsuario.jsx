@@ -18,7 +18,8 @@ class NovoUsuario extends Component {
       validacao: {
         nomeInvalido: false,
         generoInvalido: false
-      }
+      },
+      primeiraVisaoCompleta: false
     };
   }
 
@@ -42,7 +43,22 @@ class NovoUsuario extends Component {
     validacao.nomeInvalido = !usuario.validarNome();
     validacao.generoInvalido = !usuario.validarGenero();
 
-    this.setState({ validacao });
+    let mensagem = "";
+    let primeiraVisaoCompleta = false;
+
+    if (validacao.nomeInvalido && validacao.generoInvalido) {
+      mensagem = "Os campos nome e gênero estão inválidos!";
+    } else if (validacao.nomeInvalido) {
+      mensagem = "Seu nome está inválido!";
+    } else if (validacao.generoInvalido) {
+      mensagem = "Selecione seu gênero!";
+    } else {
+      primeiraVisaoCompleta = true;
+    }
+    if (!primeiraVisaoCompleta) {
+      this.props.erro(mensagem);
+    }
+    this.setState({ validacao, primeiraVisaoCompleta });
 
     e.preventDefault();
   };
