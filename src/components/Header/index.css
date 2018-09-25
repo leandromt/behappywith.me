@@ -1,0 +1,59 @@
+div.header {
+  background-color: #2c80b9;
+  min-width: 320px;
+}
+div.header img {
+  display: block;
+  margin: 0;
+}
+div.header img.logo {
+  float: left;
+  height: 92px;
+  width: 164px;
+  -webkit-animation: spin 10s linear infinite;
+  -moz-animation: spin 10s linear infinite;
+  animation: spin 10s linear infinite;
+}
+div.header h4.label {
+  color: #fff;
+  font-weight: normal;
+  line-height: 92px;
+  float: left;
+  margin: 0;
+}
+/* Animation SPIN */
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+/* Media Query */
+@media (max-width: 992px) {
+  div.header img.logo {
+    height: 78px;
+    width: 139px;
+  }
+  div.header h4.label {
+    line-height: 78px;
+  }
+}
+@media (max-width: 600px) {
+  div.header img.logo {
+    height: 62px;
+    width: 110px;
+  }
+  div.header h4.label {
+    line-height: 62px;
+  }
+}
