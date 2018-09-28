@@ -23,7 +23,7 @@ class NovoUsuario extends Component {
     };
   }
 
-  atualizaNome = e => {
+  atualizarNome = e => {
     let usuario = this.state.usuario;
     usuario.nome = e.target.value;
     this.setState({ usuario });
@@ -63,28 +63,35 @@ class NovoUsuario extends Component {
     e.preventDefault();
   };
 
-  render() {
-    console.log(this.state);
+  renderizarNome() {
     return (
-      <div className="center">
-        <form className="pure-form pure-form-stacked">
+      <section>
+        <Label
+          htmlFor="nome"
+          texto="Quem é você?"
+          valorInvalido={this.state.validacao.nomeInvalido}
+        />
+        <Input
+          id="nome"
+          placeholder="Digite seu nome"
+          maxLength="40"
+          readOnly={this.state.primeiraVisaoCompleta}
+          valorInvalido={this.state.validacao.nomeInvalido}
+          defaultValue={this.state.usuario.nome}
+          onChange={this.atualizarNome.bind(this)}
+        />
+      </section>
+    );
+  }
+
+  renderizarGenero() {
+    if (this.state.primeiraVisaoCompleta) {
+      return null;
+    } else {
+      return (
+        <section>
           <Label
-            htmlFor="nome"
-            texto="Quem é você?"
-            valorInvalido={this.state.validacao.nomeInvalido}
-          />
-          <Input
-            id="nome"
-            placeholder="Digite seu nome"
-            maxLength="40"
-            readOnly={false}
-            valorInvalido={this.state.validacao.nomeInvalido}
-            defaultValue={this.state.usuario.nome}
-            onChange={this.atualizaNome.bind(this)}
-          />
-          <Label
-            htmlFor="genero"
-            texto="Seu gênero"
+            texto="Seu gênero:"
             valorInvalido={this.state.validacao.generoInvalido}
           />
           <GenderSelector
@@ -92,7 +99,43 @@ class NovoUsuario extends Component {
             genero={this.state.usuario.genero}
             atualizarGenero={this.atualizarGenero.bind(this)}
           />
-          <Button principal texto="Próximo" onClick={this.validar} />
+        </section>
+      );
+    }
+  }
+
+  renderizarBotoes() {
+    if (this.state.primeiraVisaoCompleta) {
+      return (
+        <section>
+          <Button
+            texto="Voltar"
+            onClick={e => {
+              e.preventDefault();
+              this.setState({
+                primeiraVisaoCompleta: false
+              });
+            }}
+          />
+          <Button principal texto="Salvar" />
+        </section>
+      );
+    } else {
+      return (
+        <section>
+          <Button principal texto="Próximo" onClick={this.validar.bind(this)} />
+        </section>
+      );
+    }
+  }
+
+  render() {
+    return (
+      <div className="center">
+        <form className="pure-form pure-form-stacked">
+          {this.renderizarNome()}
+          {this.renderizarGenero()}
+          {this.renderizarBotoes()}
         </form>
       </div>
     );
