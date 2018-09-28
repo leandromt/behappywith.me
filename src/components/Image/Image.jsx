@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Avatar from "./img/avatars.png";
+import Botoes from "./img/botoes.png";
 
 class Image extends Component {
   calcularPosicaoX() {
